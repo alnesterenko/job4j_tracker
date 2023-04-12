@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.is;
 
 public class TrackerTest {
     @Test
-    public void whenAddNewItemThenTrackerHasSameItem() {
+    public void whenAddNewItemThenHasSameItem() {
         Tracker tracker = new Tracker();
         Item item = new Item();
         item.setName("test1");

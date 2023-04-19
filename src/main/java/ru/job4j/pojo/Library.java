@@ -32,7 +32,7 @@ public class Library {
         showBooks(books);
         System.out.println("Вывод всего огромного количества книг с иминем \"Clean code\":");
         for (int i = 0; i < books.length; i++) {
-            if (books[i].getName().equals("Clean code")) {
+            if ("Clean code".equals(books[i].getName())) {
                 printOneBook(books[i]);
             }
         }

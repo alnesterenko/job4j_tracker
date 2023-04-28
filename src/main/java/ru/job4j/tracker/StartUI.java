@@ -73,21 +73,6 @@ public class StartUI {
         while (run) {
             showMenu();
             int select = input.askInt("Select: ");
-            /*if (select == 0) {
-                StartUI.createItem(input, tracker);
-            } else if (select == 1) {
-                StartUI.showAllItems(input, tracker);
-            } else if (select == 2) {
-                StartUI.editItem(input, tracker);
-            } else if (select == 3) {
-                StartUI.deteleItem(input, tracker);
-            } else if (select == 4) {
-                StartUI.findItemById(input, tracker);
-            } else if (select == 5) {
-                StartUI.findItemByName(input, tracker);
-            } else if (select == 6) {
-                run = false;
-            }*/
             switch (select) {
                 case 0:
                     StartUI.createItem(input, tracker);
@@ -107,7 +92,6 @@ public class StartUI {
                 case 5:
                     StartUI.findItemByName(input, tracker);
                     break;
-                case 6:
                 default:
                     run = false;
             }

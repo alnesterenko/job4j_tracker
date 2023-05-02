@@ -35,4 +35,5 @@ public class StartUI {
         };
         new StartUI(output).init(input, tracker, actions);
     }
+    /*Комментарий для того, чтобы можно было снова закоммитить этот файл*/
 }

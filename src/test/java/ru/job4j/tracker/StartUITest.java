@@ -102,7 +102,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
-        String needFindId = "2";
+        String needFindId = String.valueOf(two.getId());
         Input in = new StubInput(
                 new String[] {"0", needFindId, "1"}
         );

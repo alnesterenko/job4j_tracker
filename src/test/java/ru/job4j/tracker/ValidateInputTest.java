@@ -50,6 +50,4 @@ public class ValidateInputTest {
         int selected = input.askInt("Enter menu:");
         assertThat(selected).isEqualTo(-6);
     }
-    /*Комментарий, для того, чтобы можно было повторить попытку пуша.
-    * Предыдущая не удалась из-за проблем с интернетом.*/
 }

@@ -23,5 +23,4 @@ public class DeleteItemAction implements UserAction {
         }
         return true;
     }
-    /*Комментарий для того, чтобы можно было снова закоммитить этот файл*/
 }

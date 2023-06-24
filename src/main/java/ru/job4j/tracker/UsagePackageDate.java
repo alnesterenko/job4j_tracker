@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-/* Образец использования даты и времени */
+
 public class UsagePackageDate {
     public static void main(String[] args) {
         LocalDateTime currentDateTime = LocalDateTime.now();

@@ -17,5 +17,4 @@ public class StubOutput implements Output {
     public String toString() {
         return buffer.toString();
     }
-    /*Комментарий для того, чтобы можно было снова закоммитить этот файл*/
 }

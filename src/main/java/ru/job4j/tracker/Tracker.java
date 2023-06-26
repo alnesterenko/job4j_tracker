@@ -1,9 +1,10 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tracker {
-    private ArrayList<Item> items = new ArrayList<>(100);
+    private List<Item> items = new ArrayList<>(100);
     private int ids = 1;
 
     public Item add(Item item) {
@@ -14,13 +15,11 @@ public class Tracker {
 
     private int indexOf(int id) {
         int rsl = -1;
-        int index = 0;
-        for (Item oneItem : items) {
-            if (oneItem.getId() == id) {
-                rsl = index;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == id) {
+                rsl = i;
                 break;
             }
-            index++;
         }
         return rsl;
     }
@@ -30,12 +29,12 @@ public class Tracker {
         return index != -1 ? items.get(index) : null;
     }
 
-    public ArrayList<Item> findAll() {
-        return items;
+    public List<Item> findAll() {
+        return List.copyOf(items);
     }
 
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> rsl = new ArrayList<>();
+    public List<Item> findByName(String key) {
+        List<Item> rsl = new ArrayList<>();
         for (Item oneItem : items) {
             if (key.equals(oneItem.getName())) {
                 rsl.add(oneItem);
@@ -46,20 +45,20 @@ public class Tracker {
 
     public boolean replace(int id, Item item) {
         int index = indexOf(id);
-        boolean wasReplaced = false;
-        if (index != -1) {
+        boolean rsl = index != -1;
+        if (rsl) {
             item.setId(id);
-            wasReplaced = items.set(index, item) != null;
+            items.set(index, item);
         }
-        return wasReplaced;
+        return rsl;
     }
 
     public boolean delete(int id) {
         int index = indexOf(id);
-        boolean wasDeleted = false;
-        if (index != -1) {
+        boolean rsl = index != -1;
+        if (rsl) {
             items.remove(index);
         }
-        return wasDeleted;
+        return rsl;
     }
 }

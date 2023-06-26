@@ -2,7 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,9 +12,7 @@ public class ValidateInputTest {
     @Test
     public void whenInvalidInput() {
         Output out = new StubOutput();
-        ArrayList<String> answers = new ArrayList<>();
-        answers.add("one");
-        answers.add("1");
+        List<String> answers = Arrays.asList("one", "1");
         Input in = new StubInput(answers);
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
@@ -23,8 +22,7 @@ public class ValidateInputTest {
     @Test
     public void whenValidInput() {
         Output out = new StubOutput();
-        ArrayList<String> answers = new ArrayList<>();
-        answers.add("6");
+        List<String> answers = Arrays.asList("6");
         Input in = new StubInput(answers);
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
@@ -34,13 +32,7 @@ public class ValidateInputTest {
     @Test
     public void manyTimesValidInput() {
         Output out = new StubOutput();
-        ArrayList<String> answers = new ArrayList<>();
-        answers.add("6");
-        answers.add("5");
-        answers.add("4");
-        answers.add("3");
-        answers.add("2");
-        answers.add("1");
+        List<String> answers = Arrays.asList("6", "5", "4", "3", "2", "1");
         Input in = new StubInput(answers);
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
@@ -60,8 +52,7 @@ public class ValidateInputTest {
     @Test
     public void whenNegotiveDigitInput() {
         Output out = new StubOutput();
-        ArrayList<String> answers = new ArrayList<>();
-        answers.add("-6");
+        List<String> answers = Arrays.asList("-6");
         Input in = new StubInput(answers);
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");

@@ -13,4 +13,5 @@ public class UsageHashSet {
             System.out.println(oneAuto);
         }
     }
+    /*Push с первого разу не прошёл, поэтому появился этот комментарий*/
 }

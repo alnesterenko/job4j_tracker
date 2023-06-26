@@ -1,14 +1,13 @@
 package ru.job4j.tracker;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class SingleTracker {
 
     private Tracker tracker = new Tracker();
     private static SingleTracker instance = null;
 
-    private SingleTracker() {
-    }
+    private SingleTracker() { }
 
     public static SingleTracker getInstance() {
         if (instance == null) {
@@ -25,11 +24,11 @@ public class SingleTracker {
         return tracker.findById(id);
     }
 
-    public List<Item> findAll() {
+    public ArrayList<Item> findAll() {
         return tracker.findAll();
     }
 
-    public List<Item> findByName(String key) {
+    public ArrayList<Item> findByName(String key) {
         return tracker.findByName(key);
     }
 

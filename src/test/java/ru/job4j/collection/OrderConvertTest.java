@@ -27,4 +27,5 @@ public class OrderConvertTest {
         HashMap<String, Order> map = OrderConvert.process(orders);
         assertThat(map.size()).isEqualTo(1);
     }
+    /*Комментарий для того, чтобы можно было повторно закоммитить этот файл*/
 }

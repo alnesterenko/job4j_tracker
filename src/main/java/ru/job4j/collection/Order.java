@@ -40,4 +40,5 @@ public class Order {
     public int hashCode() {
         return Objects.hash(number, name);
     }
+    /*Комментарий для того, чтобы можно было повторно закоммитить этот файл*/
 }

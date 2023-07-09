@@ -32,9 +32,7 @@ public class AnalyzeByMap {
         Map<String, Integer> tempMap = new LinkedHashMap<>();
         for (Pupil onePupil : pupils) {
             for (Subject oneSubject : onePupil.subjects()) {
-                tempMap.put(oneSubject.name(),
-                        tempMap.get(oneSubject.name()) == null ? oneSubject.score()
-                                : tempMap.get(oneSubject.name()) + oneSubject.score());
+                tempMap.put(oneSubject.name(), tempMap.getOrDefault(oneSubject.name(), 0) + oneSubject.score());
             }
         }
         for (String key : tempMap.keySet()) {

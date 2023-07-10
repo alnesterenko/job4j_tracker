@@ -17,7 +17,7 @@ public class AnalyzeByMap {
         return results.get(results.size() - 1);
     }
 
-    private static Map<String, Integer> crtMapSubjectsAndBales(List<Pupil> pupils) {
+    private static Map<String, Integer> createMapSubjectsAndBales(List<Pupil> pupils) {
         Map<String, Integer> tempMap = new LinkedHashMap<>();
         for (Pupil onePupil : pupils) {
             for (Subject oneSubject : onePupil.subjects()) {
@@ -47,7 +47,7 @@ public class AnalyzeByMap {
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         List<Label> resultList = new ArrayList<>();
-        Map<String, Integer> tempMap = crtMapSubjectsAndBales(pupils);
+        Map<String, Integer> tempMap = createMapSubjectsAndBales(pupils);
         for (String key : tempMap.keySet()) {
             resultList.add(new Label(key, tempMap.get(key) / pupils.size()));
         }
@@ -64,7 +64,7 @@ public class AnalyzeByMap {
 
     public static Label bestSubject(List<Pupil> pupils) {
         List<Label> resultList = new ArrayList<>();
-        Map<String, Integer> tempMap = crtMapSubjectsAndBales(pupils);
+        Map<String, Integer> tempMap = createMapSubjectsAndBales(pupils);
         for (String key : tempMap.keySet()) {
             resultList.add(new Label(key, tempMap.get(key)));
         }

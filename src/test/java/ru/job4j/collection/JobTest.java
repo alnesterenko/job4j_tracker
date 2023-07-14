@@ -131,3 +131,4 @@ public class JobTest {
         assertThat(list).isEqualTo(expectedList);
     }
 }
+/*Специальный комментарий, чтобы можно было повторно закомитить этот файл*/

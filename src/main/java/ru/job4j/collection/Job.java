@@ -1,6 +1,5 @@
 package ru.job4j.collection;
 
-/*В интерфейсе Comparable нужно указать обобщенный тип данных. В нашем случае это сам класс Job.*/
 public class Job implements Comparable<Job> {
     private String name;
 

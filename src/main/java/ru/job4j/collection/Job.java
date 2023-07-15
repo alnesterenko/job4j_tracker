@@ -50,4 +50,3 @@ public class Job implements Comparable<Job> {
         return Integer.compare(priority, another.priority);
     }
 }
-/*Специальный комментарий, чтобы можно было повторно закомитить этот файл*/

@@ -65,20 +65,20 @@ public class JobTest {
     public void whenCompatorByDescNameAndDescPrority() {
         Comparator<Job> cmpNamePriority = new JobDescByName().thenComparing(new JobDescByPriority());
         int rsl = cmpNamePriority.compare(
-                new Job("Impl task", 0),
-                new Job("Fix bug", 1)
+                new Job("it is not for beauty )))", 0),
+                new Job("it is not for beauty )))", 1)
         );
-        assertThat(rsl).isLessThan(0);
+        assertThat(rsl).isGreaterThan(0);
     }
 
     @Test
     public void whenCompatorByIncrNameAndIncrPrority() {
         Comparator<Job> cmpNamePriority = new JobIncrByName().thenComparing(new JobIncrByPriority());
         int rsl = cmpNamePriority.compare(
-                new Job("Impl task", 0),
-                new Job("Fix bug", 1)
+                new Job("it is not for beauty )))", 0),
+                new Job("it is not for beauty )))", 1)
         );
-        assertThat(rsl).isGreaterThan(0);
+        assertThat(rsl).isLessThan(0);
     }
 
     @Test
@@ -131,4 +131,3 @@ public class JobTest {
         assertThat(list).isEqualTo(expectedList);
     }
 }
-/*Специальный комментарий, чтобы можно было повторно закомитить этот файл*/

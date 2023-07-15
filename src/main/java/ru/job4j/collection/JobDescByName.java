@@ -8,4 +8,3 @@ public class JobDescByName implements Comparator<Job> {
         return o2.getName().compareTo(o1.getName());
     }
 }
-/*Специальный комментарий, чтобы можно было повторно закомитить этот файл*/

@@ -8,4 +8,3 @@ public class JobIncrByName implements Comparator<Job> {
         return o1.getName().compareTo(o2.getName());
     }
 }
-/*Специальный комментарий, чтобы можно было повторно закомитить этот файл*/

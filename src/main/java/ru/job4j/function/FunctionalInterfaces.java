@@ -17,10 +17,11 @@ public class FunctionalInterfaces {
         biCon.accept(5, "five");
         biCon.accept(6, "six");
         biCon.accept(7, "seven");
-        BiPredicate<Integer, String> biPred = (intg, str) -> intg % 2 == 0 || map.get(intg).length() == 4;
+        BiPredicate<Integer, String> biPred = (intg, str) -> intg % 2 == 0 || str.length() == 4;
         for (Integer i : map.keySet()) {
-            if (biPred.test(i, "")) {
-                System.out.println("key: " + i + " value: " + map.get(i));
+            String tempStr = map.get(i);
+            if (biPred.test(i, tempStr)) {
+                System.out.println("key: " + i + " value: " + tempStr);
             }
         }
         Supplier<List<String>> sup = () -> new ArrayList<>(map.values());

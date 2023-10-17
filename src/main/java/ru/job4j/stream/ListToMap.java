@@ -13,8 +13,8 @@ public class ListToMap {
                 .collect(Collectors.toMap(
                         Student::getSurname,
                         student -> student,
-                        (existing, replacement) -> existing
-
+                        (existing, replacement) -> existing,
+                        LinkedHashMap::new
                 ));
     }
 }

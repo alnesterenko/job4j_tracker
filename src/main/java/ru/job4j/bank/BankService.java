@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Класс описывает работу простейшего банковского сервиса.
+ *
  * @author alnesterenko
  * @version 1.0
  */
@@ -25,7 +27,7 @@ public class BankService {
      * @param user объект нового юзверя
      */
     public void addUser(User user) {
-            users.putIfAbsent(user, new ArrayList<>());
+        users.putIfAbsent(user, new ArrayList<>());
     }
 
     /**
@@ -44,7 +46,7 @@ public class BankService {
      * то этому юзверю добавляется новый аккаунт.
      *
      * @param passport номер паспорта
-     * @param account номер паспорта
+     * @param account  номер паспорта
      */
     public void addAccount(String passport, Account account) {
         User foundUser = findByPassport(passport);
@@ -63,21 +65,18 @@ public class BankService {
      * @return возвращает объект найденного юзверя
      */
     public User findByPassport(String passport) {
-        User foundUser = null;
-        for (User oneUser : users.keySet()) {
-            if (passport.equals(oneUser.getPassport())) {
-                foundUser = oneUser;
-                break;
-            }
-        }
-        return foundUser;
+        return users.keySet()
+                .stream()
+                .filter(oneUser -> passport.equals(oneUser.getPassport()))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
      * Метод ищет аккаунт у юзверя.
      * Сперва находится конкретный юзверь по паспорту, а затем перебираются его аккаунты и сравниваются их реквизиты.
      *
-     * @param passport номер паспорта
+     * @param passport  номер паспорта
      * @param requisite реквизиты счёта, который ищем
      * @return если нашли совпадение реквизитов -- возвращается объект аккаунта, если совпадения нет -- возвращается null
      */
@@ -85,13 +84,11 @@ public class BankService {
         Account result = null;
         User foundUser = findByPassport(passport);
         if (foundUser != null) {
-            List<Account> accounts = users.get(foundUser);
-            for (Account oneAccount : accounts) {
-                if (requisite.equals(oneAccount.getRequisite())) {
-                    result = oneAccount;
-                    break;
-                }
-            }
+            result = users.get(foundUser)
+                    .stream()
+                    .filter(oneAccount -> requisite.equals(oneAccount.getRequisite()))
+                    .findFirst()
+                    .orElse(null);
         }
         return result;
     }
@@ -105,11 +102,11 @@ public class BankService {
      * аккаунт назначения существует.
      * И только после этого с аккаунта списания списывается сумма, которая потом зачисляется на аккаунт назначения.
      *
-     * @param srcPassport номер паспорта юзверя, с аккаунта которого списываются деньги
-     * @param srcRequisite реквизиты счёта списания
-     * @param destPassport номер паспорта юзверя, которому на счёт зачисляются деньги
+     * @param srcPassport   номер паспорта юзверя, с аккаунта которого списываются деньги
+     * @param srcRequisite  реквизиты счёта списания
+     * @param destPassport  номер паспорта юзверя, которому на счёт зачисляются деньги
      * @param destRequisite реквизиты счёта назначения
-     * @param amount сумма перевода
+     * @param amount        сумма перевода
      * @return возвращает true, если перевод прошёл успешно. False, если не успешно.
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,

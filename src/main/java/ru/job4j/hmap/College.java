@@ -1,6 +1,7 @@
 package ru.job4j.hmap;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class College {
@@ -11,24 +12,23 @@ public class College {
         this.students = students;
     }
 
-    public Student findByAccount(String account) {
+    public Optional<Student> findByAccount(String account) {
         return students.keySet()
                 .stream()
                 .filter(s -> s.account().equals(account))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
-    public Subject findBySubjectName(String account, String name) {
-        Student a = findByAccount(account);
-        if (a != null) {
-            return students.get(a)
+    public Optional<Subject> findBySubjectName(String account, String name) {
+        Optional foundStudent = findByAccount(account);
+        Optional<Subject> result = Optional.empty();
+        if (foundStudent.isPresent()) {
+            result = students.get(foundStudent.get())
                     .stream()
                     .filter(s -> s.name().equals(name))
-                    .findFirst()
-                    .orElse(null);
+                    .findFirst();
         }
-        return null;
+        return result;
     }
 
 }

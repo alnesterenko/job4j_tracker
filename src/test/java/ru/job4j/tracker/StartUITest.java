@@ -9,9 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-@Ignore
+
 public class StartUITest {
 
+    @Ignore
     @BeforeEach
     public void clearTableBeforeEachTest() {
         SqlTracker tempTracker = new SqlTracker();
@@ -19,6 +20,7 @@ public class StartUITest {
         tempTracker = null;
     }
 
+    @Ignore
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
@@ -30,6 +32,7 @@ public class StartUITest {
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
+    @Ignore
     @Test
     public void whenReplaceItem() {
         Output out = new StubOutput();
@@ -43,6 +46,7 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
 
+    @Ignore
     @Test
     public void whenDeleteItem() {
         Output out = new StubOutput();
@@ -55,6 +59,7 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId())).isNull();
     }
 
+    @Ignore
     @Test
     public void whenExit() {
         Output out = new StubOutput();
@@ -69,6 +74,7 @@ public class StartUITest {
         );
     }
 
+    @Ignore
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
@@ -92,6 +98,7 @@ public class StartUITest {
         );
     }
 
+    @Ignore
     @Test
     public void findItemByIdActionTest() {
         Output out = new StubOutput();
@@ -116,6 +123,7 @@ public class StartUITest {
         );
     }
 
+    @Ignore
     @Test
     public void findItemByNameActionTest() {
         Output out = new StubOutput();
@@ -140,6 +148,7 @@ public class StartUITest {
         );
     }
 
+    @Ignore
     @Test
     public void showAllItemsActionTest() {
         Output out = new StubOutput();
@@ -164,6 +173,7 @@ public class StartUITest {
         );
     }
 
+    @Ignore
     @Test
     public void whenInvalidExit() {
         Output out = new StubOutput();

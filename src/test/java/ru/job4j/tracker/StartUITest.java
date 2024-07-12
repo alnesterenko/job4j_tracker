@@ -13,14 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StartUITest {
 
     @Ignore
-    @BeforeEach
-    public void clearTableBeforeEachTest() {
-        SqlTracker tempTracker = new SqlTracker();
-        tempTracker.clearTable();
-        tempTracker = null;
-    }
-
-    @Ignore
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();

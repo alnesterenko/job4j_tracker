@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.tracker.action.*;
 
@@ -12,7 +13,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StartUITest {
 
-    @Ignore
+    @Disabled
+    @BeforeEach
+    public void clearTableBeforeEachTest() {
+        SqlTracker tempTracker = new SqlTracker();
+        tempTracker.clearTable();
+        tempTracker = null;
+    }
+
+    @Disabled
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
@@ -24,7 +33,7 @@ public class StartUITest {
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void whenReplaceItem() {
         Output out = new StubOutput();
@@ -38,7 +47,7 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void whenDeleteItem() {
         Output out = new StubOutput();
@@ -51,7 +60,7 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId())).isNull();
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void whenExit() {
         Output out = new StubOutput();
@@ -66,7 +75,7 @@ public class StartUITest {
         );
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
@@ -90,7 +99,7 @@ public class StartUITest {
         );
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void findItemByIdActionTest() {
         Output out = new StubOutput();
@@ -115,7 +124,7 @@ public class StartUITest {
         );
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void findItemByNameActionTest() {
         Output out = new StubOutput();
@@ -140,7 +149,7 @@ public class StartUITest {
         );
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void showAllItemsActionTest() {
         Output out = new StubOutput();
@@ -165,7 +174,7 @@ public class StartUITest {
         );
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void whenInvalidExit() {
         Output out = new StubOutput();

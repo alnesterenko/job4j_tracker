@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.tracker.action.*;
 
@@ -9,12 +10,18 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StartUITest {
+    @BeforeEach
+    public void clearTableBeforeEachTest() {
+        SqlTracker tempTracker = new SqlTracker();
+        tempTracker.clearTable();
+    }
+
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
         List<String> answers = Arrays.asList("0", "Item name", "1");
         Input in = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = Arrays.asList(new Create(out), new Exit());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
@@ -23,7 +30,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItem() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         List<String> answers = Arrays.asList("0", Integer.toString(item.getId()), replacedName, "1");
@@ -36,7 +43,7 @@ public class StartUITest {
     @Test
     public void whenDeleteItem() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("Deleted item"));
         List<String> answers = Arrays.asList("0", Integer.toString(item.getId()), "1");
         Input in = new StubInput(answers);
@@ -50,7 +57,7 @@ public class StartUITest {
         Output out = new StubOutput();
         List<String> answers = Arrays.asList("0");
         Input in = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = Arrays.asList(new Exit());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString()).isEqualTo(
@@ -62,7 +69,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item one = tracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         List<String> answers = Arrays.asList("0", String.valueOf(one.getId()), replaceName, "1");
@@ -85,7 +92,7 @@ public class StartUITest {
     @Test
     public void findItemByIdActionTest() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
         String needFindId = String.valueOf(two.getId());
@@ -109,7 +116,7 @@ public class StartUITest {
     @Test
     public void findItemByNameActionTest() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
         String needFindItemName = "test10";
@@ -133,7 +140,7 @@ public class StartUITest {
     @Test
     public void showAllItemsActionTest() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
         List<String> answers = Arrays.asList("0", "1");
@@ -159,7 +166,7 @@ public class StartUITest {
         Output out = new StubOutput();
         List<String> answers = Arrays.asList("99", "0");
         Input in = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = Arrays.asList(new Exit());
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();

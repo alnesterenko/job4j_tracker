@@ -14,6 +14,7 @@ public class StartUITest {
     public void clearTableBeforeEachTest() {
         SqlTracker tempTracker = new SqlTracker();
         tempTracker.clearTable();
+        tempTracker = null;
     }
 
     @Test

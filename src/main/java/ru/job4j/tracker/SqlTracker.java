@@ -146,15 +146,4 @@ public class SqlTracker implements Store {
         }
         return result;
     }
-
-    /*Этот метод уже не актуален, но он оставлен на всякий случай*/
-    public void clearTable() {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "delete from items;\n"
-                        + "ALTER SEQUENCE items_id_seq RESTART WITH 1")) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

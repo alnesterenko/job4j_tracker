@@ -13,31 +13,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StartUITest {
 
-    @Disabled
-    @BeforeEach
-    public void clearTableBeforeEachTest() {
-        SqlTracker tempTracker = new SqlTracker();
-        tempTracker.clearTable();
-        tempTracker = null;
-    }
-
-    @Disabled
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
         List<String> answers = Arrays.asList("0", "Item name", "1");
         Input in = new StubInput(answers);
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         List<UserAction> actions = Arrays.asList(new Create(out), new Exit());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
-    @Disabled
     @Test
     public void whenReplaceItem() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         List<String> answers = Arrays.asList("0", Integer.toString(item.getId()), replacedName, "1");
@@ -47,11 +37,10 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
 
-    @Disabled
     @Test
     public void whenDeleteItem() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item item = tracker.add(new Item("Deleted item"));
         List<String> answers = Arrays.asList("0", Integer.toString(item.getId()), "1");
         Input in = new StubInput(answers);
@@ -60,13 +49,12 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId())).isNull();
     }
 
-    @Disabled
     @Test
     public void whenExit() {
         Output out = new StubOutput();
         List<String> answers = Arrays.asList("0");
         Input in = new StubInput(answers);
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         List<UserAction> actions = Arrays.asList(new Exit());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString()).isEqualTo(
@@ -75,11 +63,10 @@ public class StartUITest {
         );
     }
 
-    @Disabled
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         List<String> answers = Arrays.asList("0", String.valueOf(one.getId()), replaceName, "1");
@@ -99,11 +86,10 @@ public class StartUITest {
         );
     }
 
-    @Disabled
     @Test
     public void findItemByIdActionTest() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
         String needFindId = String.valueOf(two.getId());
@@ -124,11 +110,10 @@ public class StartUITest {
         );
     }
 
-    @Disabled
     @Test
     public void findItemByNameActionTest() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
         String needFindItemName = "test10";
@@ -149,11 +134,10 @@ public class StartUITest {
         );
     }
 
-    @Disabled
     @Test
     public void showAllItemsActionTest() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         Item two = tracker.add(new Item("test10"));
         List<String> answers = Arrays.asList("0", "1");
@@ -174,13 +158,12 @@ public class StartUITest {
         );
     }
 
-    @Disabled
     @Test
     public void whenInvalidExit() {
         Output out = new StubOutput();
         List<String> answers = Arrays.asList("99", "0");
         Input in = new StubInput(answers);
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         List<UserAction> actions = Arrays.asList(new Exit());
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();

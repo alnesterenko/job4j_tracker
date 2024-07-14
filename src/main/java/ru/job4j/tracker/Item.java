@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -65,7 +66,8 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return Objects.equals(name, item.name);
+        return Objects.equals(name, item.name)
+                && (created.format(FORMATTER).equals(item.created.format(FORMATTER)));
     }
 
     @Override

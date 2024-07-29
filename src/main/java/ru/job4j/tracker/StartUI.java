@@ -37,10 +37,16 @@ public class StartUI {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput());
         try (Store tracker = new SqlTracker()) {
-        List<UserAction> actions = Arrays.asList(new Create(output),
-                new ShowAll(output), new Edit(output),
-                new Delete(output), new FindById(output),
-                new FindByName(output), new Exit());
+        List<UserAction> actions = Arrays.asList(
+                new Create(output),
+                new ShowAll(output),
+                new Edit(output),
+                new Delete(output),
+                new FindById(output),
+                new FindByName(output),
+                new CreateManyItems(output),
+                new DeleteAllItems(output),
+                new Exit());
         new StartUI(output).init(input, tracker, actions);
         } catch (Exception e) {
             e.printStackTrace();

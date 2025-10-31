@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -96,7 +97,7 @@ public class SqlTracker implements Store {
                     items.add(new Item(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
+                            resultSet.getTimestamp("created").toLocalDateTime().truncatedTo(ChronoUnit.SECONDS)
                     ));
                 }
             }
@@ -116,7 +117,7 @@ public class SqlTracker implements Store {
                     items.add(new Item(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
+                            resultSet.getTimestamp("created").toLocalDateTime().truncatedTo(ChronoUnit.SECONDS)
                     ));
                 }
             }
@@ -136,7 +137,7 @@ public class SqlTracker implements Store {
                     result = new Item(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()
+                            resultSet.getTimestamp("created").toLocalDateTime().truncatedTo(ChronoUnit.SECONDS)
                     );
                 }
             }

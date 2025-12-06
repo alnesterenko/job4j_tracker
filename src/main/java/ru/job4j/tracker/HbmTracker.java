@@ -1,0 +1,110 @@
+package ru.job4j.tracker;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HbmTracker implements Store, AutoCloseable {
+    private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+            .configure().build();
+    private final SessionFactory sf = new MetadataSources(registry)
+            .buildMetadata().buildSessionFactory();
+
+    @Override
+    public Item add(Item item) {
+        Session session = this.sf.openSession();
+        try {
+            session.beginTransaction();
+            session.save(item);
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return item;
+    }
+
+    @Override
+    public boolean replace(Integer id, Item item) {
+        boolean result = false;
+        Session session = this.sf.openSession();
+        try {
+            session.beginTransaction();
+            session.createQuery(
+                            "UPDATE Item SET name = :name, created = :created WHERE id = :id")
+                    .setParameter("name", item.getName())
+                    .setParameter("created", item.getCreated())
+                    .setParameter("id", id)
+                    .executeUpdate();
+            session.getTransaction().commit();
+            result = true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Session session = this.sf.openSession();
+        try {
+            session.beginTransaction();
+            session.createQuery(
+                            "DELETE Item WHERE id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Item> findAll() {
+        List<Item> result = new ArrayList<>();
+        try (Session session = this.sf.openSession()) {
+            Query<Item> query = session.createQuery("FROM Item");
+            result = query.list();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        try (Session session = this.sf.openSession()) {
+            Query<Item> query = session.createQuery(
+                    "FROM Item AS i WHERE i.name = :name", Item.class);
+            query.setParameter("name", key);
+            result = query.list();
+        }
+        return result;
+    }
+
+    @Override
+    public Item findById(Integer id) {
+        try (Session session = this.sf.openSession()) {
+            Query<Item> query = session.createQuery(
+                    "FROM Item AS i WHERE i.id = :id", Item.class);
+            query.setParameter("id", id);
+            return query.uniqueResult();
+        }
+    }
+
+    @Override
+    public void close() {
+        StandardServiceRegistryBuilder.destroy(registry);
+    }
+}

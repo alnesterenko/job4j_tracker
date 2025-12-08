@@ -44,9 +44,7 @@ public class HbmTracker implements Store, AutoCloseable {
                     .setParameter("id", id)
                     .executeUpdate();
             session.getTransaction().commit();
-            if (updatedLines > 0) {
-                result = true;
-            }
+                result = updatedLines > 0;
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {

@@ -19,10 +19,17 @@ public class HbmRun {
             create(role, sf);
             var user = new User();
             user.setName("Admin Admin");
+            user.setMessengers(List.of(
+                    new UserMessenger(0, "tg", "@tg"),
+                    new UserMessenger(0, "wu", "@wu")
+            ));
             user.setRole(role);
             create(user, sf);
-            findAll(User.class, sf)
-                    .forEach(System.out::println);
+            var stored = sf.openSession()
+                    .createQuery("FROM User WHERE id = :fId", User.class)
+                    .setParameter("fId", user.getId())
+                    .getSingleResult();
+            stored.getMessengers().forEach(System.out::println);
         }  catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -33,7 +40,9 @@ public class HbmRun {
     public static <T> void create(T model, SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.persist(model);
+        /*session.persist(model);*/
+        /* Если создаём не первый раз, то нужно использовать merge() */
+        session.merge(model);
         session.getTransaction().commit();
         session.close();
     }
